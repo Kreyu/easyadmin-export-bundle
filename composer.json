@@ -1,0 +1,39 @@
+{
+  "name": "kreyu/easyadmin-export-bundle",
+  "description": "Generate spreadsheets for entities managed by the EasyAdmin.",
+  "type": "symfony-bundle",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Sebastian Wróblewski",
+      "email": "kontakt@swroblewski.pl"
+    }
+  ],
+  "require": {
+    "php": "^7.1.3",
+    "doctrine/collections": "^1.5",
+    "doctrine/common": "^2.8",
+    "doctrine/doctrine-bundle": "^1.8",
+    "doctrine/orm": "^2.6",
+    "easycorp/easyadmin-bundle": "^2.0",
+    "symfony/framework-bundle": "^4.1",
+    "symfony/http-foundation": "^4.1",
+    "symfony/http-kernel": "^4.1",
+    "symfony/property-access": "^4.1",
+    "phpoffice/phpspreadsheet": "^1.6",
+    "twig/twig": "^2.4"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^7.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Kreyu\\Bundle\\EasyAdminExportBundle\\": "src"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Kreyu\\Bundle\\EasyAdminExportBundle\\Tests\\": "tests"
+    }
+  }
+}

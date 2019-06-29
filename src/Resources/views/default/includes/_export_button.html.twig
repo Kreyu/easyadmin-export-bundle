@@ -1,0 +1,23 @@
+{% set _entity_config = easyadmin_entity(app.request.query.get('entity')) %}
+
+{% if 'export' in _entity_config|keys %}
+    {% set _export_config = _entity_config.export %}
+
+    {% if _export_config.formats|length > 0 %}
+        {% block export_action %}
+            <div class="button-action">
+                <div class="dropdown">
+                    <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        {% if _export_config.icon is defined and _export_config.icon is not empty %}<i class="fa fa-{{ _export_config.icon }}"></i>{% endif %}
+                        {{ _export_config.label is defined and not _export_config.label is empty ? _export_config.label|trans(_trans_parameters) }}
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        {% for format in _export_config.formats %}
+                            <a class="dropdown-item" href="{{ path('easyadmin', _request_parameters|merge({ action: 'export', format: format })) }}">{{ format|upper }}</a>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        {% endblock export_action %}
+    {% endif %}
+{% endif %}
