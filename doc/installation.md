@@ -50,6 +50,7 @@ If you cannot replace the default controller (i.e. already using custom one), yo
     ```php
     use EasyCorp\Bundle\EasyAdminBundle\Controller\EasyAdminController;
     use Kreyu\Bundle\EasyAdminExportBundle\Controller\ExportControllerTrait;
+    use Symfony\Contracts\Translation\TranslatorInterface;
     
     class MyCustomController extends EasyAdminController
     {
