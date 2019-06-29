@@ -172,55 +172,54 @@ By default, the [ExportExceptionListener](../src/EventListener/ExportExceptionLi
 ```yaml
 # config/packages/kreyu_easy_admin_export.yaml
 kreyu_easy_admin_export:
-    export:
 
-        # Label visible on the export button.
-        label: Export
+    # Label visible on the export button.
+    label: Export
 
-        # Icon visible on the export button.
-        icon: table
+    # Icon visible on the export button.
+    icon: table
 
-        # Base filename, if null (by default) the lowercase entity name is used.
-        filename: ~
+    # Base filename, if null (by default) the lowercase entity name is used.
+    filename: ~
 
-        # If true (by default), the headers will be included in the spreadsheets.
-        use_headers: true
+    # If true (by default), the headers will be included in the spreadsheets.
+    use_headers: true
 
-        # If true (by default), the current datetime will be included in the filename.
-        timestamp: true
+    # If true (by default), the current datetime will be included in the filename.
+    timestamp: true
 
-        # Format of the filename timestamp.
-        timestamp_format: d-m-Y_H-i-s
+    # Format of the filename timestamp.
+    timestamp_format: d-m-Y_H-i-s
 
-        # String prefix, which separates the base filename from timestamp in filename.
-        timestamp_prefix: _
+    # String prefix, which separates the base filename from timestamp in filename.
+    timestamp_prefix: _
 
-        # If true (by default), the list template gets overriden with the custom one, adding the export button.
-        override_template: true
+    # If true (by default), the list template gets overriden with the custom one, adding the export button.
+    override_template: true
 
-        # An array of enabled export formats.
-        formats:
+    # An array of enabled export formats.
+    formats:
 
-            # Defaults:
-            - csv
-            - xls
-            - xlsx
+        # Defaults:
+        - csv
+        - xls
+        - xlsx
 
-        # Entity exportable fields. Inherits from entity list fields by default.
-        fields:               []
+    # Entity exportable fields. Inherits from entity list fields by default.
+    fields:               []
 
-        # Metadata properties applied to the generated spreadsheets.
-        metadata:
-            creator: ~
-            last_modified_by: ~
-            title: ~
-            subject: ~
-            description: ~
-            keywords: ~
-            category: ~
+    # Metadata properties applied to the generated spreadsheets.
+    metadata:
+        creator: ~
+        last_modified_by: ~
+        title: ~
+        subject: ~
+        description: ~
+        keywords: ~
+        category: ~
 
-        # Headers applied to the streamed response with the generated spreadsheet.
-        headers:
-            content_type: application/vnd.ms-excel
-            cache_control: max-age=0
+    # Headers applied to the streamed response with the generated spreadsheet.
+    headers:
+        content_type: application/vnd.ms-excel
+        cache_control: max-age=0
 ```
