@@ -67,7 +67,7 @@ export:
 ```
 
 For more information, take a look at the template:  
-[@KreyuEasyAdminExport\default\list.html.twig](./src/Resources/views/default/list.html.twig)
+[@KreyuEasyAdminExport\default\list.html.twig](../src/Resources/views/default/list.html.twig)
 
 ## Modifying the export data
 
