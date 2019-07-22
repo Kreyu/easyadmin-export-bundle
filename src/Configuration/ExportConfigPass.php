@@ -83,7 +83,7 @@ class ExportConfigPass implements ConfigPassInterface
             $this->parameterBag->get('kreyu_easy_admin_export.config')
         ]);
 
-        $entityConfig['export'] = array_merge($entityConfig['export'] ?? [], $processed);
+        $entityConfig['export'] = array_merge($processed, $entityConfig['export'] ?? []);
 
         return $entityConfig;
     }
