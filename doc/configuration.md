@@ -78,7 +78,7 @@ However, it is possible to describe them manually, for example:
 # ...
 export: 
     fields:
-        - { property: id, label: product.fields.id }
+        - id
         - { property: name, label: product.fields.name }
 ```
 
