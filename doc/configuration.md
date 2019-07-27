@@ -82,6 +82,46 @@ export:
         - { property: name, label: product.fields.name }
 ```
 
+If the field is a relation, every item in the Doctrine collection will be converted to string.  
+Because of that, remember to implement the `__toString` method in your entities.  
+
+### Custom property data transformer
+
+It is possible to convert the property data manually, by specifying the callable `transformer`:
+
+```yaml
+# ...
+export: 
+    fields:
+        - { property: id, label: product.fields.id }
+        - { property: name, label: product.fields.name, transformer: App\Helper\StringTransformer::lowercase }
+```
+
+```php
+// in your transformer class
+namespace App\Helper;
+
+class StringTransformer
+{
+    public static function lowercase($data, array $fieldConfig, array $entityConfig)
+    {
+        return mb_strtolower($data);
+    }
+}
+```
+
+The passed params are:
+
+| Parameter | Description |
+| --- | --- |
+| `mixed $data` | The property data to convert |
+| `array $fieldConfig` | Field configuration array |
+| `array $entityConfig` | Entity configuration array |
+
+The returned value **has to be type string**.
+
+### Labels
+
 The labels are translated using the default implementation of the Translator.  
 By default, labels are displayed on the first row of the spreadsheet.  
 To disable this behavior, set the `use_headers` option to `false`:
@@ -89,8 +129,7 @@ To disable this behavior, set the `use_headers` option to `false`:
 ```yaml
 # ...
 export: 
-    fields:
-        use_headers: false
+    use_headers: false
 ```
 
 It is possible to provide the custom query builder and handle the data generation manually by overriding the following methods:  
@@ -115,11 +154,10 @@ To override this behavior, use following options:
 ```yaml
 # ...
 export: 
-    fields:
-        filename: awesome_products # null by default
-        timestamp: true
-        timestamp_prefix: -
-        timestamp_format: d_m_Y
+    filename: awesome_products # null by default
+    timestamp: true
+    timestamp_prefix: __
+    timestamp_format: d_m_Y
 ```
 
 The above configuration will generate the following filename:
@@ -206,6 +244,7 @@ kreyu_easy_admin_export:
         - xlsx
 
     # Entity exportable fields. Inherits from entity list fields by default.
+    # Note: works only in the entity configuration.
     fields:               []
 
     # Metadata properties applied to the generated spreadsheets.

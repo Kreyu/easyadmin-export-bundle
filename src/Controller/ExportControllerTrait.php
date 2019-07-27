@@ -143,9 +143,7 @@ trait ExportControllerTrait
 
                 // Call the transformer if given.
                 if (is_callable($field['transformer'])) {
-                    $record[] = call_user_func($field['transformer'], $value, $field);
-
-                    continue;
+                    $value = call_user_func($field['transformer'], $value, $field, $entityConfig);
                 }
 
                 // If property is type 'association' - its Doctrine Collection value has to be converted to string.
@@ -154,7 +152,7 @@ trait ExportControllerTrait
                         return (string) $item;
                     });
 
-                    return implode(', ', $value->toArray());
+                    $value = implode(', ', $value->toArray());
                 }
 
                 $record[] = $value;

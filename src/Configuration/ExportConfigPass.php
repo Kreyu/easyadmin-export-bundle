@@ -130,6 +130,10 @@ class ExportConfigPass implements ConfigPassInterface
 
                 // Push the processed field to the temporary array and move/continue to the next field.
                 $fields[$field] = $entityConfig['properties'][$field];
+
+                // Set the transformer to null because it is not given.
+                $fields[$field]['transformer'] = null;
+
                 continue;
             }
 
@@ -145,6 +149,11 @@ class ExportConfigPass implements ConfigPassInterface
 
             // Push the processed field to the temporary array.
             $fields[$property] = array_merge($entityConfig['properties'][$property], $field);
+
+            // Set the transformer to null if not given.
+            if (!array_key_exists('transformer', $fields[$property])) {
+                $fields[$property]['transformer'] = null;
+            }
         }
 
         // Replace the defined in the configuration export fields with the processed ones.
