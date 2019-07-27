@@ -66,7 +66,6 @@ class EasyAdminExportExtensionTest extends TestCase
                 'xlsx',
             ],
             'use_headers' => true,
-            'fields' => [],
             'metadata' => [
                 'creator' => null,
                 'last_modified_by' => null,
@@ -100,7 +99,6 @@ class EasyAdminExportExtensionTest extends TestCase
                     'xlsx',
                 ],
                 'use_headers' => true,
-                'fields' => [],
                 'metadata' => [
                     'creator' => 'Author',
                     'last_modified_by' => 'Last monday',

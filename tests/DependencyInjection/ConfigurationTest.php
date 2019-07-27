@@ -56,7 +56,6 @@ class ConfigurationTest extends TestCase
             'filename' => null,
             'override_template' => true,
             'use_headers' => true,
-            'fields' => [],
             'metadata' => [
                 'creator' => null,
                 'last_modified_by' => null,
@@ -89,7 +88,6 @@ class ConfigurationTest extends TestCase
                 'xlsx',
             ],
             'use_headers' => true,
-            'fields' => [],
             'metadata' => [
                 'creator' => null,
                 'last_modified_by' => null,

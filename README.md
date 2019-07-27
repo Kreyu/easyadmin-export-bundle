@@ -23,4 +23,4 @@ composer require kreyu/easyadmin-export-bundle
 
 ## License
 
-The MIT License (MIT). Please see [license file](LICENSE.md) for more information.
+The MIT License (MIT). Please see [license file](LICENSE) for more information.
