@@ -1,8 +1,18 @@
 <?php
 
+/*
+ * This file is part of the EasyAdminExportBundle package.
+ *
+ * (c) Sebastian Wróblewski <kontakt@swroblewski.pl>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace Kreyu\Bundle\EasyAdminExportBundle\Controller;
 
 use DateTime;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\QueryBuilder;
 use Exception;
 use Kreyu\Bundle\EasyAdminExportBundle\Event\EasyAdminExportEvents;
@@ -100,37 +110,54 @@ trait ExportControllerTrait
          */
         $translator = $this->get('translator');
 
-        $fields = $entityConfig['export']['fields'];
-        $entities = $queryBuilder->getQuery()->getResult();
-
-        $data = [];
-
-        if ($entityConfig['export']['use_headers']) {
-            $headers = [];
-
-            foreach ($fields as $field) {
-                $header = null;
-
-                if (array_key_exists('label', $field)) {
-                    $header = $translator->trans($field['label']);
-                }
-
-                $headers[] = $header;
-            }
-
-            $data[] = $headers;
-        }
-
         /**
          * @var PropertyAccessorInterface $accessor
          */
         $accessor = $this->get('easyadmin.property_accessor');
 
+        $fields = $entityConfig['export']['fields'];
+        $entities = $queryBuilder->getQuery()->getResult();
+
+        // Create a temporary array to store the export data.
+        $data = [];
+
+        // Push the translated headers to the export data if this feature is enabled.
+        if ($entityConfig['export']['use_headers']) {
+            $headers = [];
+
+            foreach ($fields as $field) {
+                // If the property label is not defined in the configuration, use the property name.
+                $headers[] = $translator->trans($field['label'] ?? ucfirst($field['property']));
+            }
+
+            $data[] = $headers;
+        }
+
+        // Process and push the entity data to the export data array.
         foreach ($entities as $entity) {
             $record = [];
 
             foreach ($fields as $field) {
-                $record[] = $accessor->getValue($entity, $field['property']);
+                // Retrieve the entity property value using the property accessor.
+                $value = $accessor->getValue($entity, $field['property']);
+
+                // Call the transformer if given.
+                if (is_callable($field['transformer'])) {
+                    $record[] = call_user_func($field['transformer'], $value, $field);
+
+                    continue;
+                }
+
+                // If property is type 'association' - its Doctrine Collection value has to be converted to string.
+                if ($value instanceof Collection) {
+                    $value = $value->map(function ($item) {
+                        return (string) $item;
+                    });
+
+                    return implode(', ', $value->toArray());
+                }
+
+                $record[] = $value;
             }
 
             $data[] = $record;
@@ -157,6 +184,7 @@ trait ExportControllerTrait
         $spreadsheet = new Spreadsheet();
         $properties = $spreadsheet->getProperties();
 
+        // Set the spreadsheet metadata using the values defined in the configuration.
         foreach ($entityConfig['export']['metadata'] as $property => $value) {
             if (null !== $value) {
                 $accessor->setValue($properties, $property, $value);

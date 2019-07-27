@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the EasyAdminExportBundle package.
+ *
+ * (c) Sebastian Wróblewski <kontakt@swroblewski.pl>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace Kreyu\Bundle\EasyAdminExportBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
@@ -58,16 +67,6 @@ class Configuration implements ConfigurationInterface
                     ->prototype('scalar')->end()
                     ->defaultValue(['csv', 'xls', 'xlsx'])
                     ->info('An array of enabled export formats.')
-                ->end()
-                ->arrayNode('fields')
-                    ->arrayPrototype()
-                        ->children()
-                            ->scalarNode('property')->end()
-                            ->scalarNode('label')->end()
-                        ->end()
-                    ->end()
-                    ->defaultValue([])
-                    ->info('Entity exportable fields. Inherits from entity list fields by default.')
                 ->end()
                 ->arrayNode('metadata')
                     ->addDefaultsIfNotSet()
