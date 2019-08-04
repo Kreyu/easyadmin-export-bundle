@@ -142,7 +142,7 @@ trait ExportControllerTrait
                 $value = $accessor->getValue($entity, $field['property']);
 
                 // Call the transformer if given.
-                if (is_callable($field['transformer'])) {
+                if (array_key_exists('transformer', $field) && is_callable($field['transformer'])) {
                     $value = call_user_func($field['transformer'], $value, $field, $entityConfig);
                 }
 
