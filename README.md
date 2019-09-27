@@ -1,4 +1,6 @@
 # EasyAdmin Export Bundle
+
+> Please **do not** use this bundle in production environment. It is **not finished**, stuff **will break**.
  
 [![Latest Stable Version](https://poser.pugx.org/kreyu/easyadmin-export-bundle/version)](https://packagist.org/packages/kreyu/easyadmin-export-bundle)
 [![Build Status](https://travis-ci.org/Kreyu/easyadmin-export-bundle.svg?branch=master)](https://travis-ci.org/Kreyu/easyadmin-export-bundle)
